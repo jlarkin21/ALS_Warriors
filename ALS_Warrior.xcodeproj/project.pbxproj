@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E32E191E1E6E7C870049F721 /* RangeOfMotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32E191D1E6E7C870049F721 /* RangeOfMotionViewController.swift */; };
 		E3C9F9E81E6D377A00AC9A45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C9F9E71E6D377A00AC9A45 /* AppDelegate.swift */; };
 		E3C9F9EA1E6D377A00AC9A45 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C9F9E91E6D377A00AC9A45 /* ViewController.swift */; };
 		E3C9F9ED1E6D377B00AC9A45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3C9F9EB1E6D377B00AC9A45 /* Main.storyboard */; };
@@ -14,6 +15,7 @@
 		E3C9F9F21E6D377B00AC9A45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3C9F9F01E6D377B00AC9A45 /* LaunchScreen.storyboard */; };
 		E3C9F9FD1E6D377B00AC9A45 /* ALS_WarriorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C9F9FC1E6D377B00AC9A45 /* ALS_WarriorTests.swift */; };
 		E3C9FA081E6D377B00AC9A45 /* ALS_WarriorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C9FA071E6D377B00AC9A45 /* ALS_WarriorUITests.swift */; };
+		E3C9FA1C1E6E5EFB00AC9A45 /* TapTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C9FA1B1E6E5EFB00AC9A45 /* TapTestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E32E191D1E6E7C870049F721 /* RangeOfMotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeOfMotionViewController.swift; sourceTree = "<group>"; };
 		E3C9F9E41E6D377A00AC9A45 /* ALS_Warrior.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALS_Warrior.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3C9F9E71E6D377A00AC9A45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3C9F9E91E6D377A00AC9A45 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +50,7 @@
 		E3C9FA031E6D377B00AC9A45 /* ALS_WarriorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ALS_WarriorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3C9FA071E6D377B00AC9A45 /* ALS_WarriorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALS_WarriorUITests.swift; sourceTree = "<group>"; };
 		E3C9FA091E6D377B00AC9A45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3C9FA1B1E6E5EFB00AC9A45 /* TapTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapTestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 			children = (
 				E3C9F9E71E6D377A00AC9A45 /* AppDelegate.swift */,
 				E3C9F9E91E6D377A00AC9A45 /* ViewController.swift */,
+				E3C9FA1B1E6E5EFB00AC9A45 /* TapTestViewController.swift */,
+				E32E191D1E6E7C870049F721 /* RangeOfMotionViewController.swift */,
 				E3C9F9EB1E6D377B00AC9A45 /* Main.storyboard */,
 				E3C9F9EE1E6D377B00AC9A45 /* Assets.xcassets */,
 				E3C9F9F01E6D377B00AC9A45 /* LaunchScreen.storyboard */,
@@ -260,6 +266,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3C9F9EA1E6D377A00AC9A45 /* ViewController.swift in Sources */,
+				E32E191E1E6E7C870049F721 /* RangeOfMotionViewController.swift in Sources */,
+				E3C9FA1C1E6E5EFB00AC9A45 /* TapTestViewController.swift in Sources */,
 				E3C9F9E81E6D377A00AC9A45 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +425,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "gsu.ALS-Warrior";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -429,6 +438,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "gsu.ALS-Warrior";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -505,6 +515,7 @@
 				E3C9FA0E1E6D377B00AC9A45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E3C9FA0F1E6D377B00AC9A45 /* Build configuration list for PBXNativeTarget "ALS_WarriorTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +524,7 @@
 				E3C9FA111E6D377B00AC9A45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E3C9FA121E6D377B00AC9A45 /* Build configuration list for PBXNativeTarget "ALS_WarriorUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +533,7 @@
 				E3C9FA141E6D377B00AC9A45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
