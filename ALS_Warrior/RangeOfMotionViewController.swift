@@ -21,9 +21,9 @@ class RangeOfMotionViewController: UIViewController {
     var currentMaxAccelY: Double = 0.0
     var currentMaxAccelZ: Double = 0.0
     
-    //    var currentMaxRotX: Double = 0.0
-    //    var currentMaxRotY: Double = 0.0
-    //    var currentMaxRotZ: Double = 0.0
+    var currentMaxRotX: Double = 0.0
+    var currentMaxRotY: Double = 0.0
+    var currentMaxRotZ: Double = 0.0
     
     var movementManager = CMMotionManager()
     
@@ -37,12 +37,9 @@ class RangeOfMotionViewController: UIViewController {
     @IBOutlet var maxAccY: UILabel!
     @IBOutlet var maxAccZ: UILabel!
     
-    //    @IBOutlet var rotX: UILabel!
-    //    @IBOutlet var rotY: UILabel!
-    //    @IBOutlet var rotZ: UILabel!
-    //    @IBOutlet var maxRotX: UILabel!
-    //    @IBOutlet var maxRotY: UILabel!
-    //    @IBOutlet var maxRotZ: UILabel!
+    @IBOutlet var rotX: UILabel!
+    @IBOutlet var maxRotX: UILabel!
+
     
     
     @IBAction func resetMaxValues(sender: AnyObject) {
@@ -52,7 +49,7 @@ class RangeOfMotionViewController: UIViewController {
         currentMaxAccelY = 0
         currentMaxAccelZ = 0
         
-        //        currentMaxRotX = 0
+        currentMaxRotX = 0
         //        currentMaxRotY = 0
         //        currentMaxRotZ = 0
     }
@@ -63,12 +60,13 @@ class RangeOfMotionViewController: UIViewController {
         currentMaxAccelY = 0
         currentMaxAccelZ = 0
         
-        //        currentMaxRotX = 0
+        currentMaxRotX = 0
         //        currentMaxRotY = 0
         //        currentMaxRotZ = 0
         
         movementManager.gyroUpdateInterval = 0.2
         movementManager.accelerometerUpdateInterval = 0.2
+        movementManager.deviceMotionUpdateInterval = 0.2
         
         //Start Recording Data
         
@@ -79,6 +77,7 @@ class RangeOfMotionViewController: UIViewController {
                 print("\(NSError)")
             }
         }
+ 
         
         //        movementManager.startGyroUpdates(to: OperationQueue.current!, withHandler: { (gyroData: CMGyroData?, NSError) -> Void in
         //            self.outputRotData(rotation: gyroData!.rotationRate)
@@ -89,12 +88,85 @@ class RangeOfMotionViewController: UIViewController {
         //
         //        })
         
+        if movementManager.isDeviceMotionAvailable {
+            movementManager.deviceMotionUpdateInterval = 0.02
+            movementManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler: { (deviceMotionData: CMDeviceMotion?, NSError) -> Void in
+                self.outputDeviceData(deviceMotion: deviceMotionData!)
+                if(NSError != nil){
+                    print("\(NSError)")
+                }
+            })
+        }
         
         
         
     }
+        
+        
+        func outputDeviceData(deviceMotion: CMDeviceMotion){
+            
+            accX?.text = "\(deviceMotion.userAcceleration.x).2fg"
+            if fabs(deviceMotion.userAcceleration.x) > fabs(currentMaxAccelX)
+            {
+                currentMaxAccelX = deviceMotion.userAcceleration.x
+            }
+            
+            accY?.text = "\(deviceMotion.userAcceleration.y).2fg"
+            if fabs(deviceMotion.userAcceleration.y) > fabs(currentMaxAccelY)
+            {
+                currentMaxAccelY = deviceMotion.userAcceleration.y
+            }
+            
+            accZ?.text = "\(deviceMotion.userAcceleration.z).2fg"
+            if fabs(deviceMotion.userAcceleration.z) > fabs(currentMaxAccelZ)
+            {
+                currentMaxAccelZ = deviceMotion.userAcceleration.z
+            }
+            
+            
+            maxAccX?.text = "\(currentMaxAccelX).2f"
+            maxAccY?.text = "\(currentMaxAccelY).2f"
+            maxAccZ?.text = "\(currentMaxAccelZ).2f"
+            
+
+            
+            rotX?.text = "\(deviceMotion.rotationRate.x).2fg"
+            if fabs(deviceMotion.rotationRate.x) > fabs(currentMaxRotX){
+                currentMaxRotX = deviceMotion.rotationRate.x
+            }
+            
+            maxRotX?.text = "\(currentMaxRotX).2f"
+
+            //        rotX?.text = "\(rotation.x).2fr/s"
+            //        if fabs(rotation.x) > fabs(currentMaxRotX)
+            //        {
+            //            currentMaxRotX = rotation.x
+            //        }
+            //
+            //        rotY?.text = "\(rotation.y).2fr/s"
+            //        if fabs(rotation.y) > fabs(currentMaxRotY)
+            //        {
+            //            currentMaxRotY = rotation.y
+            //        }
+            //
+            //        rotZ?.text = "\(rotation.z).2fr/s"
+            //        if fabs(rotation.z) > fabs(currentMaxRotZ)
+            //        {
+            //            currentMaxRotZ = rotation.z
+            //        }
+            //
+            //
+            //
+            //
+            //        maxRotX?.text = "\(currentMaxRotX).2f"
+            //        maxRotY?.text = "\(currentMaxRotY).2f"
+            //        maxRotZ?.text = "\(currentMaxRotZ).2f"
+            
+            
+        }
+
     
-    func outputAccData(acceleration: CMAcceleration){
+    /*func outputAccData(acceleration: CMAcceleration){
         
         accX?.text = "\(acceleration.x).2fg"
         if fabs(acceleration.x) > fabs(currentMaxAccelX)
@@ -118,9 +190,9 @@ class RangeOfMotionViewController: UIViewController {
         maxAccX?.text = "\(currentMaxAccelX).2f"
         maxAccY?.text = "\(currentMaxAccelY).2f"
         maxAccZ?.text = "\(currentMaxAccelZ).2f"
+ 
         
-        
-    }
+    } */
     
     //    func outputRotData(rotation: CMRotationRate){
     //
