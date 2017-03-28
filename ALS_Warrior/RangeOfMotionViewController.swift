@@ -166,7 +166,7 @@ class RangeOfMotionViewController: UIViewController {
         }
 
     
-    /*func outputAccData(acceleration: CMAcceleration){
+    func outputAccData(acceleration: CMAcceleration){
         
         accX?.text = "\(acceleration.x).2fg"
         if fabs(acceleration.x) > fabs(currentMaxAccelX)
@@ -192,7 +192,7 @@ class RangeOfMotionViewController: UIViewController {
         maxAccZ?.text = "\(currentMaxAccelZ).2f"
  
         
-    } */
+    }
     
     //    func outputRotData(rotation: CMRotationRate){
     //
