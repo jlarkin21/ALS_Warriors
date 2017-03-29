@@ -39,20 +39,23 @@ class RangeOfMotionViewController: UIViewController {
     
     @IBOutlet var rotX: UILabel!
     @IBOutlet var maxRotX: UILabel!
+    @IBOutlet var rotY: UILabel!
+    @IBOutlet var maxRotY: UILabel!
+    @IBOutlet var rotZ: UILabel!
+    @IBOutlet var maxRotZ: UILabel!
 
     
     
-    @IBAction func resetMaxValues(sender: AnyObject) {
-        
-        
+    @IBAction func resetValues(_ sender: UIButton) {
         currentMaxAccelX = 0
         currentMaxAccelY = 0
         currentMaxAccelZ = 0
         
         currentMaxRotX = 0
-        //        currentMaxRotY = 0
-        //        currentMaxRotZ = 0
+        currentMaxRotY = 0
+        currentMaxRotZ = 0
     }
+    
     
     override func viewDidLoad() {
         
@@ -61,8 +64,8 @@ class RangeOfMotionViewController: UIViewController {
         currentMaxAccelZ = 0
         
         currentMaxRotX = 0
-        //        currentMaxRotY = 0
-        //        currentMaxRotZ = 0
+        currentMaxRotY = 0
+        currentMaxRotZ = 0
         
         movementManager.gyroUpdateInterval = 0.2
         movementManager.accelerometerUpdateInterval = 0.2
@@ -130,37 +133,27 @@ class RangeOfMotionViewController: UIViewController {
             
 
             
-            rotX?.text = "\(deviceMotion.rotationRate.x).2fg"
-            if fabs(deviceMotion.rotationRate.x) > fabs(currentMaxRotX){
-                currentMaxRotX = deviceMotion.rotationRate.x
+            rotX?.text = "\(deviceMotion.attitude.pitch).2fg"
+            if fabs(deviceMotion.attitude.pitch) > fabs(currentMaxRotX){
+                currentMaxRotX = deviceMotion.attitude.pitch * (180/M_PI)
             }
             
             maxRotX?.text = "\(currentMaxRotX).2f"
-
-            //        rotX?.text = "\(rotation.x).2fr/s"
-            //        if fabs(rotation.x) > fabs(currentMaxRotX)
-            //        {
-            //            currentMaxRotX = rotation.x
-            //        }
-            //
-            //        rotY?.text = "\(rotation.y).2fr/s"
-            //        if fabs(rotation.y) > fabs(currentMaxRotY)
-            //        {
-            //            currentMaxRotY = rotation.y
-            //        }
-            //
-            //        rotZ?.text = "\(rotation.z).2fr/s"
-            //        if fabs(rotation.z) > fabs(currentMaxRotZ)
-            //        {
-            //            currentMaxRotZ = rotation.z
-            //        }
-            //
-            //
-            //
-            //
-            //        maxRotX?.text = "\(currentMaxRotX).2f"
-            //        maxRotY?.text = "\(currentMaxRotY).2f"
-            //        maxRotZ?.text = "\(currentMaxRotZ).2f"
+            
+            
+            rotY?.text = "\(deviceMotion.attitude.roll).2fg"
+            if fabs(deviceMotion.attitude.roll) > fabs(currentMaxRotY){
+                currentMaxRotY = deviceMotion.attitude.roll * (180/M_PI)
+            }
+            
+            maxRotY?.text = "\(currentMaxRotY).2f"
+            
+            rotZ?.text = "\(deviceMotion.attitude.yaw).2fg"
+            if fabs(deviceMotion.attitude.yaw) > fabs(currentMaxRotZ){
+                currentMaxRotZ = deviceMotion.attitude.yaw * (180/M_PI)
+            }
+            
+            maxRotZ?.text = "\(currentMaxRotZ).2f"
             
             
         }

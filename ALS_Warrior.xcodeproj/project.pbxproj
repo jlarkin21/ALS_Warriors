@@ -199,6 +199,7 @@
 				TargetAttributes = {
 					E3C9F9E31E6D377700AC9A45 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = VDK543GMF7;
 						ProvisioningStyle = Automatic;
 					};
 					E3C9F9F71E6D377B00AC9A45 = {
@@ -420,6 +421,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = VDK543GMF7;
 				INFOPLIST_FILE = ALS_Warrior/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "gsu.ALS-Warrior";
@@ -433,6 +435,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = VDK543GMF7;
 				INFOPLIST_FILE = ALS_Warrior/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "gsu.ALS-Warrior";
