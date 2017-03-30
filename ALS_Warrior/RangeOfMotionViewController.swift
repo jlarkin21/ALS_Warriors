@@ -25,6 +25,9 @@ class RangeOfMotionViewController: UIViewController {
     var currentMaxRotY: Double = 0.0
     var currentMaxRotZ: Double = 0.0
     
+    var currentMaxRotRateX: Double = 0.0
+    
+    
     var movementManager = CMMotionManager()
     
     //Outlets
@@ -32,10 +35,10 @@ class RangeOfMotionViewController: UIViewController {
     
     @IBOutlet var accX: UILabel!
     @IBOutlet var accY: UILabel!
-    @IBOutlet var accZ: UILabel!
+   // @IBOutlet var accZ: UILabel!
     @IBOutlet var maxAccX: UILabel!
     @IBOutlet var maxAccY: UILabel!
-    @IBOutlet var maxAccZ: UILabel!
+   // @IBOutlet var maxAccZ: UILabel!
     
     @IBOutlet var rotX: UILabel!
     @IBOutlet var maxRotX: UILabel!
@@ -44,6 +47,8 @@ class RangeOfMotionViewController: UIViewController {
     @IBOutlet var rotZ: UILabel!
     @IBOutlet var maxRotZ: UILabel!
     
+    @IBOutlet var rotRateX: UILabel!
+    @IBOutlet var maxRotRateX: UILabel!
     
     
     @IBAction func resetValues(_ sender: UIButton) {
@@ -73,13 +78,13 @@ class RangeOfMotionViewController: UIViewController {
         
         //Start Recording Data
         
-        movementManager.startAccelerometerUpdates(to: OperationQueue.current!) { (accelerometerData: CMAccelerometerData?, NSError) -> Void in
-            
-            self.outputAccData(acceleration: accelerometerData!.acceleration)
-            if(NSError != nil) {
-                print("\(NSError)")
-            }
-        }
+//        movementManager.startAccelerometerUpdates(to: OperationQueue.current!) { (accelerometerData: CMAccelerometerData?, NSError) -> Void in
+//            
+//            self.outputAccData(acceleration: accelerometerData!.acceleration)
+//            if(NSError != nil) {
+//                print("\(NSError)")
+//            }
+//        }
         
         
         //        movementManager.startGyroUpdates(to: OperationQueue.current!, withHandler: { (gyroData: CMGyroData?, NSError) -> Void in
@@ -120,16 +125,16 @@ class RangeOfMotionViewController: UIViewController {
             currentMaxAccelY = deviceMotion.userAcceleration.y
         }
         
-        accZ?.text = "\(deviceMotion.userAcceleration.z).2fg"
-        if fabs(deviceMotion.userAcceleration.z) > fabs(currentMaxAccelZ)
-        {
-            currentMaxAccelZ = deviceMotion.userAcceleration.z
-        }
+//        accZ?.text = "\(deviceMotion.userAcceleration.z).2fg"
+//        if fabs(deviceMotion.userAcceleration.z) > fabs(currentMaxAccelZ)
+//        {
+//            currentMaxAccelZ = deviceMotion.userAcceleration.z
+//        }
         
         
         maxAccX?.text = "\(currentMaxAccelX).2f"
         maxAccY?.text = "\(currentMaxAccelY).2f"
-        maxAccZ?.text = "\(currentMaxAccelZ).2f"
+//        maxAccZ?.text = "\(currentMaxAccelZ).2f"
         
         
         
@@ -155,37 +160,44 @@ class RangeOfMotionViewController: UIViewController {
         
         maxRotZ?.text = "\(currentMaxRotZ).2f"
         
+        rotRateX?.text = "\(deviceMotion.rotationRate.x).2fg"
+        if fabs(deviceMotion.rotationRate.x) > fabs(currentMaxRotRateX){
+            currentMaxRotRateX = deviceMotion.rotationRate.x
+        }
+        
+        maxRotRateX?.text = "\(currentMaxRotRateX).2f"
+        
         
     }
     
     
-    func outputAccData(acceleration: CMAcceleration){
-        
-        accX?.text = "\(acceleration.x).2fg"
-        if fabs(acceleration.x) > fabs(currentMaxAccelX)
-        {
-            currentMaxAccelX = acceleration.x
-        }
-        
-        accY?.text = "\(acceleration.y).2fg"
-        if fabs(acceleration.y) > fabs(currentMaxAccelY)
-        {
-            currentMaxAccelY = acceleration.y
-        }
-        
-        accZ?.text = "\(acceleration.z).2fg"
-        if fabs(acceleration.z) > fabs(currentMaxAccelZ)
-        {
-            currentMaxAccelZ = acceleration.z
-        }
-        
-        
-        maxAccX?.text = "\(currentMaxAccelX).2f"
-        maxAccY?.text = "\(currentMaxAccelY).2f"
-        maxAccZ?.text = "\(currentMaxAccelZ).2f"
-        
-        
-    }
+//    func outputAccData(acceleration: CMAcceleration){
+//        
+//        accX?.text = "\(acceleration.x).2fg"
+//        if fabs(acceleration.x) > fabs(currentMaxAccelX)
+//        {
+//            currentMaxAccelX = acceleration.x
+//        }
+//        
+//        accY?.text = "\(acceleration.y).2fg"
+//        if fabs(acceleration.y) > fabs(currentMaxAccelY)
+//        {
+//            currentMaxAccelY = acceleration.y
+//        }
+//        
+//        accZ?.text = "\(acceleration.z).2fg"
+//        if fabs(acceleration.z) > fabs(currentMaxAccelZ)
+//        {
+//            currentMaxAccelZ = acceleration.z
+//        }
+//        
+//        
+//        maxAccX?.text = "\(currentMaxAccelX).2f"
+//        maxAccY?.text = "\(currentMaxAccelY).2f"
+//        maxAccZ?.text = "\(currentMaxAccelZ).2f"
+//        
+//
+//    }
     
     //    func outputRotData(rotation: CMRotationRate){
     //
