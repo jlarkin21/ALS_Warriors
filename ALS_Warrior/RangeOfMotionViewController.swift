@@ -102,25 +102,33 @@ class RangeOfMotionViewController: UIViewController {
     
     func outputDeviceData(deviceMotion: CMDeviceMotion){
         
+        let attitude = deviceMotion.attitude
+        let pitchX = deviceMotion.attitude.pitch * (180/M_PI)
+        let rollY = deviceMotion.attitude.roll * (180/M_PI)
+        let yawZ = deviceMotion.attitude.yaw * (180/M_PI)
+        let rotationRateX = deviceMotion.rotationRate.x * (180/M_PI)
+
+        
         //if this is the first reading, set the initial attitude of the device
         
         if (data.count == 0) {
-            initialAttitude = deviceMotion.attitude
-            initialRotX?.text = "\(initialAttitude.pitch * (180/M_PI)).2fg"
-            initialRotY?.text = "\(initialAttitude.roll * (180/M_PI)).2fg"
-            initialRotZ?.text = "\(initialAttitude.yaw * (180/M_PI)).2fg"
+            initialAttitude = attitude
+            initialRotX?.text = "\(pitchX).2fg"
+            initialRotY?.text = "\(rollY).2fg"
+            initialRotZ?.text = "\(yawZ).2fg"
             self.data.append(deviceMotion)
 
         }
         //else multiply the current reading by the inverse of the initial attitude at the beginning of the test (this will return the change in degrees from the starting position)
         else{
             
-            deviceMotion.attitude.multiply(byInverseOf: initialAttitude)
+            attitude.multiply(byInverseOf: initialAttitude)
+            
             //can append whole deviceMotion object or just the specific value we need
             self.data.append(deviceMotion)
             
             
-            //Acceleration stuff
+            //Acceleration stuff(may not be needed)
             accX?.text = "\(deviceMotion.userAcceleration.x).2fg"
             if fabs(deviceMotion.userAcceleration.x) > fabs(currentMaxAccelX)
             {
@@ -139,35 +147,36 @@ class RangeOfMotionViewController: UIViewController {
             
             //X-Axis Rotation
             
-            rotX?.text = "\(deviceMotion.attitude.pitch * (180/M_PI)).2fg"
-            if fabs(deviceMotion.attitude.pitch * (180/M_PI)) > fabs(currentMaxRotX){
-                currentMaxRotX = fabs(deviceMotion.attitude.pitch * (180/M_PI))
+            rotX?.text = "\(pitchX).2fg"
+            if fabs(pitchX) > fabs(currentMaxRotX){
+                currentMaxRotX = fabs(pitchX)
             }
             maxRotX?.text = "\(currentMaxRotX).2f"
             
             
             //Y-Axis Rotation
             
-            rotY?.text = "\(deviceMotion.attitude.roll * (180/M_PI)).2fg"
-            if fabs(deviceMotion.attitude.roll  * (180/M_PI)) > fabs(currentMaxRotY){
-                currentMaxRotY = fabs(deviceMotion.attitude.roll * (180/M_PI))
+            rotY?.text = "\(rollY).2fg"
+            if fabs(rollY) > fabs(currentMaxRotY){
+                currentMaxRotY = fabs(rollY)
             }
             maxRotY?.text = "\(currentMaxRotY).2f"
             
             
             //Z-Axis Rotation
             
-            rotZ?.text = "\(deviceMotion.attitude.yaw * (180/M_PI)).2fg"
-            if fabs(deviceMotion.attitude.yaw  * (180/M_PI)) > fabs(currentMaxRotZ){
-                currentMaxRotZ = deviceMotion.attitude.yaw * (180/M_PI)
+            rotZ?.text = "\(yawZ).2fg"
+            if fabs(yawZ) > fabs(currentMaxRotZ){
+                currentMaxRotZ = yawZ
             }
             maxRotZ?.text = "\(currentMaxRotZ).2f"
             
             
             //X-Axis Rotation Rate (degrees per second)
-            rotRateX?.text = "\(deviceMotion.rotationRate.x * (180/M_PI)).2fg"
-            if fabs(deviceMotion.rotationRate.x * (180/M_PI)) > fabs(currentMaxRotRateX){
-                currentMaxRotRateX = fabs(deviceMotion.rotationRate.x * (180/M_PI))
+            
+            rotRateX?.text = "\(rotationRateX).2fg"
+            if fabs(rotationRateX) > fabs(currentMaxRotRateX){
+                currentMaxRotRateX = fabs(rotationRateX)
             }
             maxRotRateX?.text = "\(currentMaxRotRateX).2f"
             
