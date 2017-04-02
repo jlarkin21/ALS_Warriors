@@ -167,7 +167,7 @@ class RangeOfMotionViewController: UIViewController {
             //X-Axis Rotation Rate (degrees per second)
             rotRateX?.text = "\(deviceMotion.rotationRate.x * (180/M_PI)).2fg"
             if fabs(deviceMotion.rotationRate.x * (180/M_PI)) > fabs(currentMaxRotRateX){
-                currentMaxRotRateX = deviceMotion.rotationRate.x * (180/M_PI)
+                currentMaxRotRateX = fabs(deviceMotion.rotationRate.x * (180/M_PI))
             }
             maxRotRateX?.text = "\(currentMaxRotRateX).2f"
             
