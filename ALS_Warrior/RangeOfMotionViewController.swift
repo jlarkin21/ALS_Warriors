@@ -109,68 +109,70 @@ class RangeOfMotionViewController: UIViewController {
             initialRotX?.text = "\(initialAttitude.pitch * (180/M_PI)).2fg"
             initialRotY?.text = "\(initialAttitude.roll * (180/M_PI)).2fg"
             initialRotZ?.text = "\(initialAttitude.yaw * (180/M_PI)).2fg"
+            self.data.append(deviceMotion)
+
         }
         //else multiply the current reading by the inverse of the initial attitude at the beginning of the test (this will return the change in degrees from the starting position)
         else{
+            
             deviceMotion.attitude.multiply(byInverseOf: initialAttitude)
+            //can append whole deviceMotion object or just the specific value we need
+            self.data.append(deviceMotion)
+            
+            
+            //Acceleration stuff
+            accX?.text = "\(deviceMotion.userAcceleration.x).2fg"
+            if fabs(deviceMotion.userAcceleration.x) > fabs(currentMaxAccelX)
+            {
+                currentMaxAccelX = deviceMotion.userAcceleration.x
+            }
+            
+            accY?.text = "\(deviceMotion.userAcceleration.y).2fg"
+            if fabs(deviceMotion.userAcceleration.y) > fabs(currentMaxAccelY)
+            {
+                currentMaxAccelY = deviceMotion.userAcceleration.y
+            }
+            
+            maxAccX?.text = "\(currentMaxAccelX).2f"
+            maxAccY?.text = "\(currentMaxAccelY).2f"
+            
+            
+            //X-Axis Rotation
+            
+            rotX?.text = "\(deviceMotion.attitude.pitch * (180/M_PI)).2fg"
+            if fabs(deviceMotion.attitude.pitch * (180/M_PI)) > fabs(currentMaxRotX){
+                currentMaxRotX = fabs(deviceMotion.attitude.pitch * (180/M_PI))
+            }
+            maxRotX?.text = "\(currentMaxRotX).2f"
+            
+            
+            //Y-Axis Rotation
+            
+            rotY?.text = "\(deviceMotion.attitude.roll * (180/M_PI)).2fg"
+            if fabs(deviceMotion.attitude.roll  * (180/M_PI)) > fabs(currentMaxRotY){
+                currentMaxRotY = fabs(deviceMotion.attitude.roll * (180/M_PI))
+            }
+            maxRotY?.text = "\(currentMaxRotY).2f"
+            
+            
+            //Z-Axis Rotation
+            
+            rotZ?.text = "\(deviceMotion.attitude.yaw * (180/M_PI)).2fg"
+            if fabs(deviceMotion.attitude.yaw  * (180/M_PI)) > fabs(currentMaxRotZ){
+                currentMaxRotZ = deviceMotion.attitude.yaw * (180/M_PI)
+            }
+            maxRotZ?.text = "\(currentMaxRotZ).2f"
+            
+            
+            //X-Axis Rotation Rate (degrees per second)
+            rotRateX?.text = "\(deviceMotion.rotationRate.x * (180/M_PI)).2fg"
+            if fabs(deviceMotion.rotationRate.x * (180/M_PI)) > fabs(currentMaxRotRateX){
+                currentMaxRotRateX = deviceMotion.rotationRate.x * (180/M_PI)
+            }
+            maxRotRateX?.text = "\(currentMaxRotRateX).2f"
+            
+
         }
- 
-        //can append whole deviceMotion object or just the specific value we need
-        self.data.append(deviceMotion)
-        
-        
-        //Acceleration stuff
-        accX?.text = "\(deviceMotion.userAcceleration.x).2fg"
-        if fabs(deviceMotion.userAcceleration.x) > fabs(currentMaxAccelX)
-        {
-            currentMaxAccelX = deviceMotion.userAcceleration.x
-        }
-        
-        accY?.text = "\(deviceMotion.userAcceleration.y).2fg"
-        if fabs(deviceMotion.userAcceleration.y) > fabs(currentMaxAccelY)
-        {
-            currentMaxAccelY = deviceMotion.userAcceleration.y
-        }
-        
-        maxAccX?.text = "\(currentMaxAccelX).2f"
-        maxAccY?.text = "\(currentMaxAccelY).2f"
-        
-        
-        //X-Axis Rotation
-        
-        rotX?.text = "\(deviceMotion.attitude.pitch * (180/M_PI)).2fg"
-        if fabs(deviceMotion.attitude.pitch * (180/M_PI)) > fabs(currentMaxRotX){
-            currentMaxRotX = fabs(deviceMotion.attitude.pitch * (180/M_PI))
-        }
-        maxRotX?.text = "\(currentMaxRotX).2f"
-        
-        
-        //Y-Axis Rotation
-        
-        rotY?.text = "\(deviceMotion.attitude.roll * (180/M_PI)).2fg"
-        if fabs(deviceMotion.attitude.roll) > fabs(currentMaxRotY){
-            currentMaxRotY = fabs(deviceMotion.attitude.roll * (180/M_PI))
-        }
-        maxRotY?.text = "\(currentMaxRotY).2f"
-        
-        
-        //Z-Axis Rotation
-        
-        rotZ?.text = "\(deviceMotion.attitude.yaw * (180/M_PI)).2fg"
-        if fabs(deviceMotion.attitude.yaw) > fabs(currentMaxRotZ){
-            currentMaxRotZ = deviceMotion.attitude.yaw * (180/M_PI)
-        }
-        maxRotZ?.text = "\(currentMaxRotZ).2f"
-        
-        
-        //X-Axis Rotation Rate (degrees per second)
-        rotRateX?.text = "\(deviceMotion.rotationRate.x * (180/M_PI)).2fg"
-        if fabs(deviceMotion.rotationRate.x * (180/M_PI)) > fabs(currentMaxRotRateX){
-            currentMaxRotRateX = deviceMotion.rotationRate.x * (180/M_PI)
-        }
-        maxRotRateX?.text = "\(currentMaxRotRateX).2f"
-        
-        
     }
     
     
