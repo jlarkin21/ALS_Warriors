@@ -222,7 +222,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ng7-NS-2P5">
-                                <rect key="frame" x="241" y="294" width="42" height="21"/>
+                                <rect key="frame" x="241" y="294" width="96" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -236,9 +236,30 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cze-8H-sjU">
-                                <rect key="frame" x="241" y="335" width="42" height="21"/>
+                                <rect key="frame" x="241" y="335" width="96" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55x-nM-HbD">
+                                <rect key="frame" x="5" y="96" width="48" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sL2-d5-oNH">
+                                <rect key="frame" x="5" y="125" width="48" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2db-c8-bjv">
+                                <rect key="frame" x="5" y="154" width="48" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -248,13 +269,15 @@
                     <connections>
                         <outlet property="accX" destination="xqk-ge-3CA" id="1Zb-7Y-NNC"/>
                         <outlet property="accY" destination="4OY-0f-aCC" id="V3a-3K-K7F"/>
+                        <outlet property="initialRotX" destination="55x-nM-HbD" id="DiA-gA-UDI"/>
+                        <outlet property="initialRotY" destination="sL2-d5-oNH" id="mtR-JD-3pF"/>
+                        <outlet property="initialRotZ" destination="2db-c8-bjv" id="ipd-Ya-pMy"/>
                         <outlet property="maxAccX" destination="Udp-UZ-cca" id="RfO-GQ-qRu"/>
                         <outlet property="maxAccY" destination="d9o-0m-18x" id="4ia-yt-Upt"/>
                         <outlet property="maxRotRateX" destination="Cze-8H-sjU" id="xS7-ss-j8I"/>
                         <outlet property="maxRotX" destination="cC5-Yk-ZGD" id="YZR-8u-18C"/>
                         <outlet property="maxRotY" destination="sIh-R3-8yP" id="e8R-SA-VVp"/>
                         <outlet property="maxRotZ" destination="voa-au-YL5" id="1Of-CE-L1x"/>
-                        <outlet property="maxXRotRate" destination="Cze-8H-sjU" id="2jK-9g-ef9"/>
                         <outlet property="rotRateX" destination="Ng7-NS-2P5" id="ow1-Xc-0qK"/>
                         <outlet property="rotX" destination="Fs7-QX-UVQ" id="Xgu-4J-sTc"/>
                         <outlet property="rotY" destination="wcd-v4-NGn" id="Bfe-g5-hjc"/>

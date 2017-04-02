@@ -30,6 +30,10 @@ class RangeOfMotionViewController: UIViewController {
     
     var movementManager = CMMotionManager()
     
+    var data: [CMDeviceMotion] = []
+    var initialAttitude: CMAttitude = CMAttitude()
+    
+    
     //Outlets
     
     
@@ -50,6 +54,9 @@ class RangeOfMotionViewController: UIViewController {
     @IBOutlet var rotRateX: UILabel!
     @IBOutlet var maxRotRateX: UILabel!
     
+    @IBOutlet var initialRotX: UILabel!
+    @IBOutlet var initialRotY: UILabel!
+    @IBOutlet var initialRotZ: UILabel!
     
     @IBAction func resetValues(_ sender: UIButton) {
         currentMaxAccelX = 0
@@ -78,24 +85,6 @@ class RangeOfMotionViewController: UIViewController {
         
         //Start Recording Data
         
-//        movementManager.startAccelerometerUpdates(to: OperationQueue.current!) { (accelerometerData: CMAccelerometerData?, NSError) -> Void in
-//            
-//            self.outputAccData(acceleration: accelerometerData!.acceleration)
-//            if(NSError != nil) {
-//                print("\(NSError)")
-//            }
-//        }
-        
-        
-        //        movementManager.startGyroUpdates(to: OperationQueue.current!, withHandler: { (gyroData: CMGyroData?, NSError) -> Void in
-        //            self.outputRotData(rotation: gyroData!.rotationRate)
-        //            if (NSError != nil){
-        //                print("\(NSError)")
-        //            }
-        //
-        //
-        //        })
-        
         if movementManager.isDeviceMotionAvailable {
             movementManager.deviceMotionUpdateInterval = 0.02
             movementManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler: { (deviceMotionData: CMDeviceMotion?, NSError) -> Void in
@@ -113,6 +102,24 @@ class RangeOfMotionViewController: UIViewController {
     
     func outputDeviceData(deviceMotion: CMDeviceMotion){
         
+        //if this is the first reading, set the initial attitude of the device
+        
+        if (data.count == 0) {
+            initialAttitude = deviceMotion.attitude
+            initialRotX?.text = "\(initialAttitude.pitch * (180/M_PI)).2fg"
+            initialRotY?.text = "\(initialAttitude.roll * (180/M_PI)).2fg"
+            initialRotZ?.text = "\(initialAttitude.yaw * (180/M_PI)).2fg"
+        }
+        //else multiply the current reading by the inverse of the initial attitude at the beginning of the test (this will return the change in degrees from the starting position)
+        else{
+            deviceMotion.attitude.multiply(byInverseOf: initialAttitude)
+        }
+ 
+        //can append whole deviceMotion object or just the specific value we need
+        self.data.append(deviceMotion)
+        
+        
+        //Acceleration stuff
         accX?.text = "\(deviceMotion.userAcceleration.x).2fg"
         if fabs(deviceMotion.userAcceleration.x) > fabs(currentMaxAccelX)
         {
@@ -125,111 +132,46 @@ class RangeOfMotionViewController: UIViewController {
             currentMaxAccelY = deviceMotion.userAcceleration.y
         }
         
-//        accZ?.text = "\(deviceMotion.userAcceleration.z).2fg"
-//        if fabs(deviceMotion.userAcceleration.z) > fabs(currentMaxAccelZ)
-//        {
-//            currentMaxAccelZ = deviceMotion.userAcceleration.z
-//        }
-        
-        
         maxAccX?.text = "\(currentMaxAccelX).2f"
         maxAccY?.text = "\(currentMaxAccelY).2f"
-//        maxAccZ?.text = "\(currentMaxAccelZ).2f"
         
         
+        //X-Axis Rotation
         
         rotX?.text = "\(deviceMotion.attitude.pitch * (180/M_PI)).2fg"
         if fabs(deviceMotion.attitude.pitch * (180/M_PI)) > fabs(currentMaxRotX){
-            currentMaxRotX = deviceMotion.attitude.pitch * (180/M_PI)
+            currentMaxRotX = fabs(deviceMotion.attitude.pitch * (180/M_PI))
         }
-        
         maxRotX?.text = "\(currentMaxRotX).2f"
         
         
+        //Y-Axis Rotation
+        
         rotY?.text = "\(deviceMotion.attitude.roll * (180/M_PI)).2fg"
         if fabs(deviceMotion.attitude.roll) > fabs(currentMaxRotY){
-            currentMaxRotY = deviceMotion.attitude.roll * (180/M_PI)
+            currentMaxRotY = fabs(deviceMotion.attitude.roll * (180/M_PI))
         }
-        
         maxRotY?.text = "\(currentMaxRotY).2f"
+        
+        
+        //Z-Axis Rotation
         
         rotZ?.text = "\(deviceMotion.attitude.yaw * (180/M_PI)).2fg"
         if fabs(deviceMotion.attitude.yaw) > fabs(currentMaxRotZ){
             currentMaxRotZ = deviceMotion.attitude.yaw * (180/M_PI)
         }
-        
         maxRotZ?.text = "\(currentMaxRotZ).2f"
         
-        rotRateX?.text = "\(deviceMotion.rotationRate.x).2fg"
-        if fabs(deviceMotion.rotationRate.x) > fabs(currentMaxRotRateX){
-            currentMaxRotRateX = deviceMotion.rotationRate.x
-        }
         
+        //X-Axis Rotation Rate (degrees per second)
+        rotRateX?.text = "\(deviceMotion.rotationRate.x * (180/M_PI)).2fg"
+        if fabs(deviceMotion.rotationRate.x * (180/M_PI)) > fabs(currentMaxRotRateX){
+            currentMaxRotRateX = deviceMotion.rotationRate.x * (180/M_PI)
+        }
         maxRotRateX?.text = "\(currentMaxRotRateX).2f"
         
         
     }
-    
-    
-//    func outputAccData(acceleration: CMAcceleration){
-//        
-//        accX?.text = "\(acceleration.x).2fg"
-//        if fabs(acceleration.x) > fabs(currentMaxAccelX)
-//        {
-//            currentMaxAccelX = acceleration.x
-//        }
-//        
-//        accY?.text = "\(acceleration.y).2fg"
-//        if fabs(acceleration.y) > fabs(currentMaxAccelY)
-//        {
-//            currentMaxAccelY = acceleration.y
-//        }
-//        
-//        accZ?.text = "\(acceleration.z).2fg"
-//        if fabs(acceleration.z) > fabs(currentMaxAccelZ)
-//        {
-//            currentMaxAccelZ = acceleration.z
-//        }
-//        
-//        
-//        maxAccX?.text = "\(currentMaxAccelX).2f"
-//        maxAccY?.text = "\(currentMaxAccelY).2f"
-//        maxAccZ?.text = "\(currentMaxAccelZ).2f"
-//        
-//
-//    }
-    
-    //    func outputRotData(rotation: CMRotationRate){
-    //
-    //
-    //        rotX?.text = "\(rotation.x).2fr/s"
-    //        if fabs(rotation.x) > fabs(currentMaxRotX)
-    //        {
-    //            currentMaxRotX = rotation.x
-    //        }
-    //
-    //        rotY?.text = "\(rotation.y).2fr/s"
-    //        if fabs(rotation.y) > fabs(currentMaxRotY)
-    //        {
-    //            currentMaxRotY = rotation.y
-    //        }
-    //
-    //        rotZ?.text = "\(rotation.z).2fr/s"
-    //        if fabs(rotation.z) > fabs(currentMaxRotZ)
-    //        {
-    //            currentMaxRotZ = rotation.z
-    //        }
-    //
-    //
-    //
-    //
-    //        maxRotX?.text = "\(currentMaxRotX).2f"
-    //        maxRotY?.text = "\(currentMaxRotY).2f"
-    //        maxRotZ?.text = "\(currentMaxRotZ).2f"
-    //
-    //
-    //
-    //    }
     
     
     /*
