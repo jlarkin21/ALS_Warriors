@@ -102,27 +102,31 @@ class RangeOfMotionViewController: UIViewController {
     
     func outputDeviceData(deviceMotion: CMDeviceMotion){
         
-        let attitude = deviceMotion.attitude
-        let pitchX = deviceMotion.attitude.pitch * (180/M_PI)
-        let rollY = deviceMotion.attitude.roll * (180/M_PI)
-        let yawZ = deviceMotion.attitude.yaw * (180/M_PI)
+        let currentAttitude = deviceMotion.attitude
         let rotationRateX = deviceMotion.rotationRate.x * (180/M_PI)
 
         
-        //if this is the first reading, set the initial attitude of the device
         
         if (data.count == 0) {
-            initialAttitude = attitude
-            initialRotX?.text = "\(pitchX).2fg"
-            initialRotY?.text = "\(rollY).2fg"
-            initialRotZ?.text = "\(yawZ).2fg"
+            
+            //if this is the first reading, set the initial attitude of the device
+            initialAttitude = currentAttitude
+            
+            let initialPitchX = initialAttitude.pitch * (180/M_PI)
+            initialRotX?.text = "\(initialPitchX).2fg"
+            
+            let initialRollY = initialAttitude.roll * (180/M_PI)
+            initialRotY?.text = "\(initialRollY).2fg"
+            
+            let initialYawZ = initialAttitude.yaw * (180/M_PI)
+            initialRotZ?.text = "\(initialYawZ).2fg"
+            
             self.data.append(deviceMotion)
 
         }
-        //else multiply the current reading by the inverse of the initial attitude at the beginning of the test (this will return the change in degrees from the starting position)
         else{
-            
-            attitude.multiply(byInverseOf: initialAttitude)
+            //else multiply the current reading by the inverse of the initial attitude at the beginning of the test (this will return the change in degrees from the starting position)
+            currentAttitude.multiply(byInverseOf: initialAttitude)
             
             //can append whole deviceMotion object or just the specific value we need
             self.data.append(deviceMotion)
@@ -146,27 +150,33 @@ class RangeOfMotionViewController: UIViewController {
             
             
             //X-Axis Rotation
-            
+            let pitchX = fabs(currentAttitude.pitch * (180/M_PI))
             rotX?.text = "\(pitchX).2fg"
-            if fabs(pitchX) > fabs(currentMaxRotX){
-                currentMaxRotX = fabs(pitchX)
+            
+            //Max X-Axis Rotation
+            if pitchX > currentMaxRotX {
+                currentMaxRotX = pitchX
             }
             maxRotX?.text = "\(currentMaxRotX).2f"
             
             
             //Y-Axis Rotation
-            
+            let rollY = fabs(currentAttitude.roll * (180/M_PI))
             rotY?.text = "\(rollY).2fg"
-            if fabs(rollY) > fabs(currentMaxRotY){
-                currentMaxRotY = fabs(rollY)
+            
+            //Max Y-Axis Rotation
+            if rollY > currentMaxRotY {
+                currentMaxRotY = rollY
             }
             maxRotY?.text = "\(currentMaxRotY).2f"
             
             
             //Z-Axis Rotation
-            
+            let yawZ = fabs(currentAttitude.yaw * (180/M_PI))
             rotZ?.text = "\(yawZ).2fg"
-            if fabs(yawZ) > fabs(currentMaxRotZ){
+            
+            //Max Z-Axis Rotation
+            if yawZ > currentMaxRotZ {
                 currentMaxRotZ = yawZ
             }
             maxRotZ?.text = "\(currentMaxRotZ).2f"
@@ -175,6 +185,7 @@ class RangeOfMotionViewController: UIViewController {
             //X-Axis Rotation Rate (degrees per second)
             
             rotRateX?.text = "\(rotationRateX).2fg"
+            //Max
             if fabs(rotationRateX) > fabs(currentMaxRotRateX){
                 currentMaxRotRateX = fabs(rotationRateX)
             }
